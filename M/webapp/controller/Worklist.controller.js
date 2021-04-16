@@ -181,6 +181,9 @@ sap.ui.define([
                 this.getView().addDependent(this._oPopover);
             }
             return this._oPopover;
+        },
+        onAdd: function() {
+            this.getRouter().navTo("add");
         }
 	});
 });
