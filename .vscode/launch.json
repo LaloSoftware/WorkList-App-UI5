@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Manage_Products-M",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage-products-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/nsM/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/M",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/Manage_Products/M\"}"
+      },
+      "envFile": "${workspaceFolder}/M/.env1",
+      "preLaunchTask": "Build Manage_Products"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+_schema-version: "3.2"
+ID: Manage_Products
+version: 0.0.1
+modules:
+- name: manage-products-approuter
+  type: approuter.nodejs
+  path: manage-products-approuter
+  requires:
+  - name: Manage_Products_html_repo_runtime
+  - name: dest_Manage_Products
+  parameters:
+    disk-quota: 256M
+    memory: 256M
+- name: Manage_Products_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: Manage_Products_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - M-content.zip
+      name: M
+      target-path: resources/
+- name: M
+  type: html5
+  path: M
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+resources:
+- name: Manage_Products_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: Manage_Products_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: dest_Manage_Products
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-plan: lite
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm install
